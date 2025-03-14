@@ -1,0 +1,16 @@
+{
+    "name": "@fbehrens/phaser",
+    "version": "0.1.0",
+    "exports": "./src/phaser.ts",
+    "license": "MIT",
+    "publish": {
+        "include": [
+            "LICENSE",
+            "README.md",
+            "src/*.ts"
+        ]
+    },
+    "imports": {
+        "@std/assert": "jsr:@std/assert@1"
+    }
+}
