@@ -2,7 +2,7 @@
 
 const PHASED = Deno.env.get("PHASED")!;
 
-interface Phased {
+export interface Phased {
   encrypted: string; // Base64 encoded encrypted data
   iv: string; // Base64 encoded initialization vector
   salt: string; // Base64 encoded salt
@@ -73,7 +73,7 @@ async function deriveKey(
  * @param privateKey The private key for encryption
  * @returns Object containing the encrypted password, IV, and salt (all base64 encoded)
  */
-export async function encryptPassword(
+export async function phase(
   password: string,
   privateKey: string = PHASED
 ): Promise<Phased> {
@@ -111,7 +111,7 @@ export async function encryptPassword(
  * @param options Object containing the encrypted password, IV, salt, and private key
  * @returns The decrypted password as a string
  */
-export async function decryptPassword(
+export async function dephase(
   options: Phased,
   privateKey: string = PHASED
 ): Promise<string> {
@@ -157,7 +157,7 @@ export async function verifyPassword(
   privateKey: string = PHASED
 ): Promise<boolean> {
   try {
-    const decrypted = await decryptPassword(encryptedData, privateKey);
+    const decrypted = await dephase(encryptedData, privateKey);
 
     // Use constant-time comparison to prevent timing attacks
     // (This is a simple implementation - a more sophisticated one would be better for production)
@@ -199,9 +199,9 @@ async function main() {
   }
   if (arg.includes(`"encrypted"`)) {
     const encrypted = JSON.parse(arg);
-    console.log(await decryptPassword(encrypted));
+    console.log(await dephase(encrypted));
   } else {
-    console.log(JSON.stringify(await encryptPassword(arg), null, 2));
+    console.log(JSON.stringify(await phase(arg), null, 2));
   }
 }
 
