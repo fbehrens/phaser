@@ -11,5 +11,16 @@ A library for securely encrypting and decrypting passwords using a private key
 ## Installation
 
 ```bash
+# to deno project
 deno add jsr/@fbehrens/phaser
+
+#locally to zshrc
+git clone https://github.com/fbehrens/phaser.git
+cd phaser
+echo -e "phaser() {\n    deno run --allow-env `pwd`/src/phaser.ts \"\$1\"\n}" >> ~/.zshrc
+
+# .zshrc
+phaser() {
+    deno run --allow-env /Users/foo/Documents/Github/src/phaser.ts "$1"
+}
 ```
