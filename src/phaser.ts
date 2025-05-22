@@ -182,7 +182,7 @@ Phaser
 
 string (is your password)
 
-phaser(env PHASER is your secret private key)
+phaser(env PHASED is your secret private key)
 
 { encrypted: string; // Base64 encoded encrypted data
   iv: string; // Base64 encoded initialization vector
